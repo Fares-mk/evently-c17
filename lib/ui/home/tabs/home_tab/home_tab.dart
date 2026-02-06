@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:evently_c17/core/resources/AssetsManager.dart';
 import 'package:evently_c17/core/resources/StringsManager.dart';
 import 'package:evently_c17/ui/home/tabs/home_tab/widgets/all_tab.dart';
@@ -30,7 +31,7 @@ class HomeTab extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                      Text(StringsManager.welcomeBack,style: Theme.of(context).textTheme.bodySmall,),
+                      Text(StringsManager.welcomeBack.tr(),style: Theme.of(context).textTheme.bodySmall,),
                       Text("John Safwat",style: Theme.of(context).textTheme.titleMedium?.copyWith(
                         fontWeight: FontWeight.w500
                       ),)
@@ -84,7 +85,7 @@ class HomeTab extends StatelessWidget {
                           children: [
                             Icon(MyFlutterApp.all),
                             SizedBox(width: 4,),
-                            Text(StringsManager.all)
+                            Text(StringsManager.all.tr())
                           ],
                         ),
                       ),
@@ -96,7 +97,7 @@ class HomeTab extends StatelessWidget {
                           children: [
                             Icon(MyFlutterApp.bike),
                             SizedBox(width: 4,),
-                            Text(StringsManager.sport)
+                            Text(StringsManager.sport.tr())
                           ],
                         ),
                       ),
@@ -108,7 +109,7 @@ class HomeTab extends StatelessWidget {
                           children: [
                             Icon(MyFlutterApp.birthday_icon),
                             SizedBox(width: 4,),
-                            Text(StringsManager.birthday)
+                            Text(StringsManager.birthday.tr())
                           ],
                         ),
                       ),
@@ -120,7 +121,7 @@ class HomeTab extends StatelessWidget {
                           children: [
                             Icon(MyFlutterApp.book),
                             SizedBox(width: 4,),
-                            Text(StringsManager.bookClub)
+                            Text(StringsManager.bookClub.tr())
                           ],
                         ),
                       ),
@@ -132,7 +133,7 @@ class HomeTab extends StatelessWidget {
                           children: [
                             Icon(MyFlutterApp.exhibition),
                             SizedBox(width: 4,),
-                            Text(StringsManager.exhibition)
+                            Text(StringsManager.exhibition.tr())
                           ],
                         ),
                       ),
@@ -144,7 +145,7 @@ class HomeTab extends StatelessWidget {
                           children: [
                             Icon(MyFlutterApp.meeting),
                             SizedBox(width: 4,),
-                            Text(StringsManager.meeting)
+                            Text(StringsManager.meeting.tr())
                           ],
                         ),
                       ),

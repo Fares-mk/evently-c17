@@ -1,10 +1,11 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:evently_c17/core/resources/AssetsManager.dart';
 import 'package:evently_c17/core/resources/ColorsManager.dart';
 import 'package:evently_c17/core/resources/StringsManager.dart';
 import 'package:evently_c17/core/reusable/CustomButton.dart';
 import 'package:evently_c17/core/reusable/CustomField.dart';
 import 'package:flutter/material.dart';
-import 'package:evently_c17/core/reusable/back_button.dart' as MyBackButton;
+import 'package:evently_c17/core/reusable/back_buttonnn.dart' as MyBackButton;
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../core/resources/my_flutter_app_icons.dart';
@@ -39,8 +40,8 @@ class _AddEventScreenState extends State<AddEventScreen> {
     double height = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
-        title: Text(StringsManager.addEvent),
-        leading: MyBackButton.BackButton(
+        title: Text(StringsManager.addEvent.tr()),
+        leading: MyBackButton.BackButtonnn(
 
         ),
       ),
@@ -91,7 +92,7 @@ class _AddEventScreenState extends State<AddEventScreen> {
                               children: [
                                 Icon(MyFlutterApp.bike),
                                 SizedBox(width: 4,),
-                                Text(StringsManager.sport)
+                                Text(StringsManager.sport.tr())
                               ],
                             ),
                           ),
@@ -103,7 +104,7 @@ class _AddEventScreenState extends State<AddEventScreen> {
                               children: [
                                 Icon(MyFlutterApp.birthday_icon),
                                 SizedBox(width: 4,),
-                                Text(StringsManager.birthday)
+                                Text(StringsManager.birthday.tr())
                               ],
                             ),
                           ),
@@ -115,7 +116,7 @@ class _AddEventScreenState extends State<AddEventScreen> {
                               children: [
                                 Icon(MyFlutterApp.book),
                                 SizedBox(width: 4,),
-                                Text(StringsManager.bookClub)
+                                Text(StringsManager.bookClub.tr())
                               ],
                             ),
                           ),
@@ -127,7 +128,7 @@ class _AddEventScreenState extends State<AddEventScreen> {
                               children: [
                                 Icon(MyFlutterApp.exhibition),
                                 SizedBox(width: 4,),
-                                Text(StringsManager.exhibition)
+                                Text(StringsManager.exhibition.tr())
                               ],
                             ),
                           ),
@@ -139,7 +140,7 @@ class _AddEventScreenState extends State<AddEventScreen> {
                               children: [
                                 Icon(MyFlutterApp.meeting),
                                 SizedBox(width: 4,),
-                                Text(StringsManager.meeting)
+                                Text(StringsManager.meeting.tr())
                               ],
                             ),
                           ),
@@ -147,27 +148,27 @@ class _AddEventScreenState extends State<AddEventScreen> {
                       ]
                   ),
                   SizedBox(height: 16,),
-                  Text(StringsManager.title,style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                  Text(StringsManager.title.tr(),style: Theme.of(context).textTheme.titleMedium?.copyWith(
                     fontSize: 16,
                     fontWeight: FontWeight.w500
                   ),),
                   SizedBox(height: 8,),
                   CustomField(
                       controller: titleController,
-                      hint: StringsManager.eventTitle,
+                      hint: StringsManager.eventTitle.tr(),
                       validator: (value) {
         
                       },
                   ),
                   SizedBox(height: 16,),
-                  Text(StringsManager.desc,style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                  Text(StringsManager.desc.tr(),style: Theme.of(context).textTheme.titleMedium?.copyWith(
                       fontSize: 16,
                       fontWeight: FontWeight.w500
                   ),),
                   SizedBox(height: 8,),
                   CustomField(
                     controller: descController,
-                    hint: StringsManager.eventDesc,
+                    hint: StringsManager.eventDesc.tr(),
                     maxLines: 6,
                     validator: (value) {
         
@@ -181,7 +182,7 @@ class _AddEventScreenState extends State<AddEventScreen> {
                           BlendMode.srcIn
                       ),),
                       SizedBox(width: 8,),
-                      Text(StringsManager.eventDate,style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                      Text(StringsManager.eventDate.tr(),style: Theme.of(context).textTheme.titleMedium?.copyWith(
                           fontSize: 16,
                           fontWeight: FontWeight.w500
                       )),
@@ -189,7 +190,7 @@ class _AddEventScreenState extends State<AddEventScreen> {
                       TextButton(
                           onPressed: (){
                           },
-                          child: Text(StringsManager.chooseDate,style: Theme.of(context).textTheme.labelSmall,)
+                          child: Text(StringsManager.chooseDate.tr(),style: Theme.of(context).textTheme.labelSmall,)
                       )
                     ],
                   ),
@@ -201,7 +202,7 @@ class _AddEventScreenState extends State<AddEventScreen> {
                           BlendMode.srcIn
                       ),),
                       SizedBox(width: 8,),
-                      Text(StringsManager.eventTime,style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                      Text(StringsManager.eventTime.tr(),style: Theme.of(context).textTheme.titleMedium?.copyWith(
                           fontSize: 16,
                           fontWeight: FontWeight.w500
                       )),
@@ -209,14 +210,14 @@ class _AddEventScreenState extends State<AddEventScreen> {
                       TextButton(
                           onPressed: (){
                           },
-                          child: Text(StringsManager.chooseTime,style: Theme.of(context).textTheme.labelSmall,)
+                          child: Text(StringsManager.chooseTime.tr(),style: Theme.of(context).textTheme.labelSmall,)
                       )
                     ],
                   ),
                   SizedBox(height: 16,),
                   SizedBox(
                     width: double.infinity,
-                    child: CustomButton(title: StringsManager.addEvent, onClick: (){
+                    child: CustomButton(title: StringsManager.addEvent.tr(), onClick: (){
 
                     }),
                   )

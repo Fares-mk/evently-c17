@@ -1,3 +1,6 @@
+import 'package:easy_localization/easy_localization.dart';
+import 'package:evently_c17/core/resources/dialogue_utilles.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../../../core/resources/AssetsManager.dart';
@@ -54,34 +57,34 @@ class _SignupScreenState extends State<SignupScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(StringsManager.createYourAcc,style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                Text(StringsManager.createYourAcc.tr(),style: Theme.of(context).textTheme.titleSmall?.copyWith(
                     fontSize: 24,
                     fontWeight: FontWeight.w600
                 ),),
                 SizedBox(height: 24,),
                 CustomField(
                     controller: nameController,
-                    hint: StringsManager.enterYourName,
+                    hint: StringsManager.enterYourName.tr(),
                     prefix: AssetsManager.profile,
                     validator: Validations.validateName
                 ),
                 SizedBox(height: 16,),
                 CustomField(
                   controller: emailController,
-                  hint: StringsManager.enterYourEmail,prefix: AssetsManager.email,
+                  hint: StringsManager.enterYourEmail.tr(),prefix: AssetsManager.email,
                   validator:Validations.validateEmail,
                 ),
                 SizedBox(height: 16,),
                 CustomField(
                   controller: passwordController,
-                  hint: StringsManager.enterYourPassword,prefix: AssetsManager.lock,isPassword: true,
+                  hint: StringsManager.enterYourPassword.tr(),prefix: AssetsManager.lock,isPassword: true,
             
                   validator:Validations.validatePassword ,
                 ),
                 SizedBox(height: 16,),
                 CustomField(
                   controller: confirmPasswordController,
-                  hint: StringsManager.confirmYourPassword,
+                  hint: StringsManager.confirmYourPassword.tr(),
                   prefix: AssetsManager.lock,
                   isPassword: true,
                   validator:(value) {
@@ -91,7 +94,7 @@ class _SignupScreenState extends State<SignupScreen> {
                 SizedBox(height: 48,),
                 Container(
                   width: double.infinity,
-                  child: CustomButton(title: StringsManager.signUp, onClick: (){
+                  child: CustomButton(title: StringsManager.signUp.tr(), onClick: (){
                     signup();
                   }),
                 ),
@@ -99,7 +102,7 @@ class _SignupScreenState extends State<SignupScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(StringsManager.alreadyHaveAccount,style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                    Text(StringsManager.alreadyHaveAccount.tr(),style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                         fontWeight: FontWeight.w600,
                         fontSize: 14
                     ),),
@@ -109,7 +112,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         ),
                         onPressed: (){
                           Navigator.pushReplacementNamed(context, SigninScreen.routeName);
-                        }, child: Text(StringsManager.login,style: Theme.of(context).textTheme.labelSmall,))
+                        }, child: Text(StringsManager.login.tr(),style: Theme.of(context).textTheme.labelSmall,))
                   ],
                 )
               ],
@@ -120,9 +123,27 @@ class _SignupScreenState extends State<SignupScreen> {
     );
   }
 
-  signup(){
+  void signup()async{
     if(formKey.currentState?.validate()??false){
-      Navigator.pushReplacementNamed(context, HomeScreen.routeName);
+      try {
+        DialogueUtilles.showDialgueLoading(context: context);
+        UserCredential credential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          email: emailController.text,
+          password: passwordController.text,
+        );
+        Navigator.pop(context);
+        Navigator.pushReplacementNamed(context, SigninScreen.routeName);
+      } on FirebaseAuthException catch (e) {
+        Navigator.pop(context);
+        if (e.code == 'weak-password') {
+          DialogueUtilles.showDialogueMessage(context: context, message: 'The password provided is too weak.');
+        } else if (e.code == 'email-already-in-use') {
+          DialogueUtilles.showDialogueMessage(context: context, message:'The account already exists for that email.');
+        }
+      } catch (e) {
+        Navigator.pop(context);
+        DialogueUtilles.showDialogueMessage(context: context, message: e.toString());
+      }
     }
 
   }

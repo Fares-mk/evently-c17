@@ -1,9 +1,12 @@
 import 'dart:io';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:evently_c17/core/resources/AssetsManager.dart';
 import 'package:evently_c17/core/resources/ColorsManager.dart';
 import 'package:evently_c17/core/resources/StringsManager.dart';
 import 'package:evently_c17/ui/home/tabs/profile_tab/widgets/settings_item.dart';
+import 'package:evently_c17/ui/signin/screen/signin_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -27,7 +30,7 @@ class ProfileTab extends StatelessWidget {
             Text("johnsafwat.route@gmail.com",style: Theme.of(context).textTheme.bodySmall,),
             SizedBox(height: 32,),
             SettingsItem(
-                title: StringsManager.darkMode,
+                title: StringsManager.darkMode.tr(),
                 action: CupertinoSwitch(
                     value: false,
                     activeTrackColor: Theme.of(context).colorScheme.primary,
@@ -41,15 +44,16 @@ class ProfileTab extends StatelessWidget {
                 onTap: () {
 
                 },
-                title: StringsManager.language,
+                title: StringsManager.language.tr(),
                 action: SvgPicture.asset(AssetsManager.arrowRight)
             ),
             SizedBox(height: 16,),
             SettingsItem(
-              onTap: () {
-
+              onTap: () async{
+                await FirebaseAuth.instance.signOut();
+                Navigator.of(context).pushReplacementNamed(SigninScreen.routeName);
               },
-                title: StringsManager.logout,
+                title: StringsManager.logout.tr(),
                 action: SvgPicture.asset(AssetsManager.logout)
             ),
           ],

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:evently_c17/core/resources/AssetsManager.dart';
 import 'package:evently_c17/core/resources/StringsManager.dart';
 import 'package:evently_c17/core/reusable/CustomButton.dart';
@@ -12,7 +13,7 @@ class ForgetpassScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(StringsManager.forgetPass),
+        title: Text(StringsManager.forgetPass.tr()),
         leading: BackButton(),
       ),
       body: Padding(
@@ -22,7 +23,7 @@ class ForgetpassScreen extends StatelessWidget {
             Image.asset(AssetsManager.forgetPass),
             Container(
               width: double.infinity,
-              child: CustomButton(title: StringsManager.resetPass, onClick: () {
+              child: CustomButton(title: StringsManager.resetPass.tr(), onClick: () {
         
               },),
             )
