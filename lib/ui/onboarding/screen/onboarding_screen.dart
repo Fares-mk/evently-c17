@@ -39,7 +39,13 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     curve: Curves.easeInOut,
                   );
                 },
-                icon: SvgPicture.asset(AssetsManager.back),
+                icon: SvgPicture.asset(
+                  AssetsManager.back,
+                  colorFilter: ColorFilter.mode(
+                    Theme.of(context).colorScheme.primary,
+                    BlendMode.dstIn,
+                  ),
+                ),
               ),
         title: Image.asset(
           AssetsManager.logo,
@@ -56,14 +62,17 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             child: Container(
               padding: EdgeInsets.all(5.5),
               decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.onPrimary,
+                color: Theme.of(context).colorScheme.onSecondaryContainer,
                 borderRadius: BorderRadius.circular(8),
               ),
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16),
                 child: Text(
                   "Skip",
-                  style: Theme.of(context).textTheme.labelSmall,
+                  style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
               ),
             ),
@@ -92,10 +101,12 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             ),
           ),
           Container(
-            padding: EdgeInsets.only(left: 14,right: 14),
+            padding: EdgeInsets.only(left: 14, right: 14),
             width: double.infinity,
             child: CustomButton(
-              title: index != 2 ? StringsManager.next.tr() : StringsManager.getStarted.tr(),
+              title: index != 2
+                  ? StringsManager.next.tr()
+                  : StringsManager.getStarted.tr(),
               onClick: () {
                 index == 2
                     ? Navigator.of(
@@ -108,7 +119,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               },
             ),
           ),
-          SizedBox(height: 16,)
+          SizedBox(height: 16),
         ],
       ),
     );

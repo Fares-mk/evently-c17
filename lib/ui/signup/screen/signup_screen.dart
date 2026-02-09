@@ -47,6 +47,7 @@ class _SignupScreenState extends State<SignupScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        scrolledUnderElevation: 0,
         title: Image.asset(AssetsManager.logo,height: 27,fit: BoxFit.fitHeight,color:Theme.of(context).colorScheme.primary),
       ),
       body: Padding(

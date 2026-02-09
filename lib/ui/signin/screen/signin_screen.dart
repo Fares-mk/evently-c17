@@ -45,6 +45,7 @@ class _SigninScreenState extends State<SigninScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        scrolledUnderElevation: 0,
         title: Image.asset(
           AssetsManager.logo,
           height: 27,
@@ -132,6 +133,8 @@ class _SigninScreenState extends State<SigninScreen> {
                     ),
                   ],
                 ),
+                SizedBox(height: 32,),
+                Center(child: Text("or",style: Theme.of(context).textTheme.labelMedium,))
               ],
             ),
           ),
@@ -145,7 +148,7 @@ class _SigninScreenState extends State<SigninScreen> {
       try {
         DialogueUtilles.showDialgueLoading(context: context);
         UserCredential credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
-          email: emailController.text,
+          email: emailController.text.trim(),
           password: passwordController.text,
         );
         Navigator.pop(context);
