@@ -62,7 +62,7 @@ class MyApp extends StatelessWidget {
         AddEventScreen.routeName: (_) => AddEventScreen(),
         OnboardingScreen.routeName:(_)=>OnboardingScreen()
       },
-      initialRoute: SigninScreen.routeName,
+      initialRoute: StartScreen.routeName,
     );
   }
 }
