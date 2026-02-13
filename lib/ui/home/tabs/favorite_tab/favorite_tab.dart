@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:evently_c17/core/resources/AssetsManager.dart';
 import 'package:evently_c17/core/resources/StringsManager.dart';
 import 'package:evently_c17/core/reusable/CustomField.dart';
@@ -35,7 +36,7 @@ class _FavoriteTabState extends State<FavoriteTab> {
           children: [
             CustomField(
                 controller:searchController ,
-                hint: StringsManager.searchHint,
+                hint: StringsManager.searchHint.tr(),
                 suffix: AssetsManager.search,
                 validator: (value) => null ,
             ),

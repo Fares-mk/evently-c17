@@ -1,4 +1,6 @@
+import 'package:evently_c17/ui/home/screen/home_screen.dart';
 import 'package:evently_c17/ui/start/screen/start_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
@@ -15,7 +17,11 @@ class SplashScreen extends StatelessWidget {
       body: Center(child: Image.asset(AssetsManager.logo))
           .animate(
         onComplete: (controller){
-          Navigator.pushReplacementNamed(context, StartScreen.routeName);
+          if(FirebaseAuth.instance.currentUser==null){
+            Navigator.pushReplacementNamed(context, StartScreen.routeName);
+          }else{
+            Navigator.pushReplacementNamed(context, HomeScreen.routeName);
+          }
         },
       )
           .slideX(duration: Duration(seconds: 1))

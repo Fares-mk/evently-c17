@@ -146,7 +146,14 @@ abstract class AppTheme {
               color: ColorsManager.darkTeritaryColor,
               fontSize: 14,
               fontWeight: FontWeight.w400
-          )
+          ),
+       titleLarge:TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.w600,
+            color: ColorsManager.primaryColor,
+            decoration: TextDecoration.underline,
+            decorationColor: ColorsManager.primaryColor
+        ),
       )
   );
 }

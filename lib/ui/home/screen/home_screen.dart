@@ -1,11 +1,15 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:evently_c17/core/resources/AssetsManager.dart';
 import 'package:evently_c17/core/resources/StringsManager.dart';
+import 'package:evently_c17/model/user.dart';
+import 'package:evently_c17/providers/user_provider.dart';
 import 'package:evently_c17/ui/add_event/screen/add_event_screen.dart';
 import 'package:evently_c17/ui/home/tabs/favorite_tab/favorite_tab.dart';
 import 'package:evently_c17/ui/home/tabs/home_tab/home_tab.dart';
 import 'package:evently_c17/ui/home/tabs/profile_tab/profile_tab.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   static const String routeName = "home";
@@ -16,6 +20,12 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    Provider.of<UserProvider>(context,listen: false).getUserFromFirestore();
+  }
   int selectedIndex = 0;
   List<Widget> tabs = [
     HomeTab(),
@@ -35,17 +45,17 @@ class _HomeScreenState extends State<HomeScreen> {
           destinations: [
             NavigationDestination(
                 icon: SvgPicture.asset(AssetsManager.home),
-                label: StringsManager.home,
+                label: StringsManager.home.tr(),
                 selectedIcon:SvgPicture.asset(AssetsManager.home_selected) ,
             ),
             NavigationDestination(
                 icon: SvgPicture.asset(AssetsManager.heart),
-                label: StringsManager.favorite,
+                label: StringsManager.favorite.tr(),
                 selectedIcon:SvgPicture.asset(AssetsManager.heart_selected) ,
             ),
             NavigationDestination(
                 icon: SvgPicture.asset(AssetsManager.profile),
-                label: StringsManager.profile,
+                label: StringsManager.profile.tr(),
                 selectedIcon:SvgPicture.asset(AssetsManager.profile_selected) ,
             ),
           ]
