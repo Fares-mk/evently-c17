@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:evently_c17/core/remote/local/memory_manager.dart';
 import 'package:evently_c17/core/resources/AppTheme.dart';
 import 'package:evently_c17/providers/theme_porvider.dart';
+import 'package:evently_c17/providers/user_provider.dart';
 import 'package:evently_c17/ui/add_event/screen/add_event_screen.dart';
 import 'package:evently_c17/ui/forget_pass/screen/forgetpas_screen.dart';
 import 'package:evently_c17/ui/home/screen/home_screen.dart';
@@ -19,17 +20,12 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
   await MemoryManager.init();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(
     ChangeNotifierProvider(
       create: (context) => ThemePorvider()..initTheme(),
       child: EasyLocalization(
-        supportedLocales: [
-          Locale("en"),
-          Locale("ar")
-        ],
+        supportedLocales: [Locale("en"), Locale("ar")],
         path: 'assets/transations',
         fallbackLocale: Locale("en"),
         startLocale: Locale("ar"),
@@ -38,8 +34,10 @@ void main() async {
     ),
   );
 }
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -58,11 +56,14 @@ class MyApp extends StatelessWidget {
         SigninScreen.routeName: (_) => SigninScreen(),
         SignupScreen.routeName: (_) => SignupScreen(),
         ForgetpassScreen.routeName: (_) => ForgetpassScreen(),
-        HomeScreen.routeName: (_) => HomeScreen(),
+        HomeScreen.routeName: (_) => ChangeNotifierProvider(
+          create: (BuildContext context) => UserProvider(),
+          child: HomeScreen(),
+        ),
         AddEventScreen.routeName: (_) => AddEventScreen(),
-        OnboardingScreen.routeName:(_)=>OnboardingScreen()
+        OnboardingScreen.routeName: (_) => OnboardingScreen(),
       },
-      initialRoute: StartScreen.routeName,
+      initialRoute: SplashScreen.routeName,
     );
   }
 }

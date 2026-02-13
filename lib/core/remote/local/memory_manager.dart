@@ -23,4 +23,15 @@ class MemoryManager {
       return ThemeMode.light;
     }
   }
+  static saveSwitch(bool Switch){
+    if(Switch==false){
+      share.setBool("switch", false);
+    }else{
+      share.setBool("switch",true);
+    }
+  }
+  static getSwitch(){
+    bool value=share.getBool("switch")??false;
+    return value;
+  }
 }
