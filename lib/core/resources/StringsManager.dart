@@ -51,6 +51,8 @@ abstract final class StringsManager {
   static const String socialDesc="socialDesc";
   static const String next="next";
   static const String getStarted="getStarted";
+  static const String LoginwithGoogle="Login with Google";
+  static const String SignupwithGoogle="Sign up with Google";
 
 
 }

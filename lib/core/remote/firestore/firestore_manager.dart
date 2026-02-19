@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:evently_c17/model/event.dart';
 import 'package:evently_c17/model/user.dart';
 import 'package:firebase_auth/firebase_auth.dart'as auth;
 
@@ -14,6 +15,17 @@ class FirebaseManager {
       },);
     return collection;
   }
+  static CollectionReference<Event> GetEventcollection(){
+    var collection = FirebaseFirestore.instance.collection("Event").withConverter(
+      fromFirestore: (snapshot, options) {
+        Map<String,dynamic>? data=snapshot.data();
+        return Event.FromFirestore(data!);
+      },
+      toFirestore: (event, options) {
+        return event.ToFirestore();
+      },);
+    return collection;
+  }
   static Future<void> addUser({required String uid,required User user}) {
     var collection= GetUsercollection();
     var doc=collection.doc(uid);
@@ -24,6 +36,13 @@ class FirebaseManager {
     var doc=collection.doc(auth.FirebaseAuth.instance.currentUser?.uid);
     var snapshot=await doc.get();
     return snapshot.data();
+  }
+
+  static Future<void> addEvent(Event event){
+    var collection= GetEventcollection();
+    var doc=collection.doc();
+    event.id=doc.id;
+    return doc.set(event);
   }
 
 }

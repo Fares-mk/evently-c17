@@ -37,7 +37,9 @@ abstract class AppTheme {
       onPrimary: ColorsManager.onPrimaryColor,
       onPrimaryContainer: ColorsManager.primaryColor,
       onSecondaryContainer: Colors.white,
-      onTertiaryContainer: ColorsManager.fieldBorder
+      onTertiaryContainer: ColorsManager.fieldBorder,
+      onTertiaryFixed: ColorsManager.primaryColor,
+      onPrimaryFixed:Colors.white
     ),
     textTheme: TextTheme(
       titleMedium: TextStyle(
@@ -110,7 +112,9 @@ abstract class AppTheme {
         onPrimary: ColorsManager.darkOnPrimaryColor,
         onPrimaryContainer: Colors.white,
         onSecondaryContainer: ColorsManager.darkUnselected,
-        onTertiaryContainer: ColorsManager.fieldBorderDark
+        onTertiaryContainer: ColorsManager.fieldBorderDark,
+        onTertiaryFixed: ColorsManager.darkPrimaryColor,
+        onPrimaryFixed:ColorsManager.darkUnselected
 
 
     ),

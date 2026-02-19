@@ -4,14 +4,17 @@ import 'package:evently_c17/core/resources/StringsManager.dart';
 import 'package:evently_c17/core/resources/Validations.dart';
 import 'package:evently_c17/core/reusable/CustomButton.dart';
 import 'package:evently_c17/core/reusable/CustomField.dart';
+import 'package:evently_c17/google_auth.dart';
 import 'package:evently_c17/ui/forget_pass/screen/forgetpas_screen.dart';
 import 'package:evently_c17/ui/home/screen/home_screen.dart';
 import 'package:evently_c17/ui/signup/screen/signup_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
+import '../../../core/remote/firestore/firestore_manager.dart';
 import '../../../core/resources/AssetsManager.dart';
 import '../../../core/resources/dialogue_utilles.dart';
+import '../../../model/user.dart' as Myuser;
 
 class SigninScreen extends StatefulWidget {
   static const String routeName = "signin";
@@ -22,6 +25,8 @@ class SigninScreen extends StatefulWidget {
 
 class _SigninScreenState extends State<SigninScreen> {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  GoogleAuth googleAuth= GoogleAuth();
+
   late TextEditingController emailController;
   late TextEditingController passwordController;
 
@@ -134,7 +139,23 @@ class _SigninScreenState extends State<SigninScreen> {
                   ],
                 ),
                 SizedBox(height: 32,),
-                Center(child: Text("or",style: Theme.of(context).textTheme.labelMedium,))
+                Center(child: Text("or",style: Theme.of(context).textTheme.labelMedium,)),
+                SizedBox(height: 32,),
+                CustomButton(title: StringsManager.LoginwithGoogle, onClick: () async {
+                  final result = await googleAuth.signInWithGoogle();
+                  if (result != null) {
+                    FirebaseManager.addUser(
+                      uid: result.user!.uid,
+                      user: Myuser.User(
+                        id: result.user!.uid,
+                        name: result.user!.displayName ?? "No Name",
+                        email: result.user!.email ?? "",
+                      ),
+                    );
+                    if (!context.mounted) return;
+                    Navigator.pushReplacementNamed(context, HomeScreen.routeName);
+                  }
+                },prefix: AssetsManager.google,)
               ],
             ),
           ),

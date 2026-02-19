@@ -42,4 +42,5 @@ abstract final class AssetsManager {
   static const String cat="assets/images/cat_boarding.png";
   static const String social="assets/images/social_boarding.png";
   static const String teacher="assets/images/teacher_boarding.png";
+  static const String google="assets/images/google.png";
 }
