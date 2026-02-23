@@ -54,10 +54,12 @@ class _EditEventState extends State<EditEvent> {
         .of(context)
         ?.settings
         .arguments as Event;
-    titleController.text = event.title ?? "";
-    descController.text = event.description ?? "";
-    selectedDate = event.eventDate!.toDate();
-    selectedTime = TimeOfDay.fromDateTime(event.eventDate!.toDate());
+    if(titleController.text==null||descController.text==null||selectedDate==null||selectedTime==null) {
+      titleController.text = event.title ?? "";
+      descController.text = event.description ?? "";
+      selectedDate = event.eventDate!.toDate();
+      selectedTime = TimeOfDay.fromDateTime(event.eventDate!.toDate());
+    }
   }
 
   @override

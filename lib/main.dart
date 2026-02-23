@@ -68,7 +68,7 @@ class MyApp extends StatelessWidget {
         OnboardingScreen.routeName: (_) => OnboardingScreen(),
         DetailsScreen.routeName:(_)=>DetailsScreen(),
       },
-      initialRoute: HomeScreen.routeName,
+      initialRoute: SplashScreen.routeName,
     );
   }
 }
