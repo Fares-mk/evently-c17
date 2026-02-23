@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:evently_c17/core/remote/firestore/firestore_manager.dart';
 import 'package:evently_c17/core/resources/dialogue_utilles.dart';
+import 'package:evently_c17/google_auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:evently_c17/model/user.dart' as Myuser;
@@ -23,6 +24,7 @@ class SignupScreen extends StatefulWidget {
 
 class _SignupScreenState extends State<SignupScreen> {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  GoogleAuth googleAuth= GoogleAuth();
   late TextEditingController emailController;
   late TextEditingController nameController;
   late TextEditingController passwordController;
@@ -117,7 +119,7 @@ class _SignupScreenState extends State<SignupScreen> {
                     signup();
                   }),
                 ),
-                SizedBox(height: 48,),
+                SizedBox(height: 25,),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -141,7 +143,26 @@ class _SignupScreenState extends State<SignupScreen> {
                         .textTheme
                         .labelSmall,))
                   ],
-                )
+                ),
+                SizedBox(height: 32,),
+                Center(child: Text("or",style: Theme.of(context).textTheme.labelMedium,)),
+                SizedBox(height: 32,),
+                CustomButton(title: StringsManager.SignupwithGoogle, onClick: () async {
+                  final result = await googleAuth.signInWithGoogle();
+                  if (!context.mounted) return;
+                  if (result != null) {
+                    FirebaseManager.addUser(
+                      uid: result.user!.uid,
+                      user: Myuser.User(
+                        id: result.user!.uid,
+                        name: result.user!.displayName ?? "No Name",
+                        email: result.user!.email ?? "",
+                      ),
+                    );
+                    Navigator.pushReplacementNamed(context, HomeScreen.routeName);
+                  }
+                }
+                  ,prefix: AssetsManager.google,)
               ],
             ),
           ),
@@ -181,4 +202,5 @@ class _SignupScreenState extends State<SignupScreen> {
       }
     }
   }
+
 }

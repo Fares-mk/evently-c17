@@ -3,13 +3,11 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:evently_c17/core/remote/firestore/firestore_manager.dart';
 import 'package:evently_c17/core/resources/AppConstants.dart';
 import 'package:evently_c17/core/resources/AssetsManager.dart';
-import 'package:evently_c17/core/resources/ColorsManager.dart';
 import 'package:evently_c17/core/resources/StringsManager.dart';
 import 'package:evently_c17/core/resources/dialogue_utilles.dart';
 import 'package:evently_c17/core/reusable/CustomButton.dart';
 import 'package:evently_c17/core/reusable/CustomField.dart';
 import 'package:evently_c17/model/event.dart';
-import 'package:evently_c17/providers/theme_porvider.dart';
 import 'package:evently_c17/ui/home/screen/home_screen.dart';
 import 'package:evently_c17/ui/home/tabs/home_tab/home_tab.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -18,21 +16,25 @@ import 'package:evently_c17/core/reusable/back_buttonnn.dart' as MyBackButton;
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 
-import '../../../core/resources/my_flutter_app_icons.dart';
-import '../widgets/tab_view_image.dart';
+import '../../../../core/resources/my_flutter_app_icons.dart';
+import '../../../providers/theme_porvider.dart';
+import '../../add_event/widgets/tab_view_image.dart';
 
-class AddEventScreen extends StatefulWidget {
-  static const String routeName = "add_event";
+class EditEvent extends StatefulWidget {
+  static const String routeName = "Edit_Event";
 
-  const AddEventScreen({super.key});
+  const EditEvent({super.key});
 
   @override
-  State<AddEventScreen> createState() => _AddEventScreenState();
+  State<EditEvent> createState() => _EditEventState();
 }
 
-class _AddEventScreenState extends State<AddEventScreen> {
+class _EditEventState extends State<EditEvent> {
   late TextEditingController titleController;
   late TextEditingController descController;
+  late Event event;
+  TimeOfDay? selectedTime;
+  DateTime? selectedDate;
   GlobalKey<FormState> formkey = GlobalKey<FormState>();
   int selectedindex = 0;
 
@@ -45,6 +47,20 @@ class _AddEventScreenState extends State<AddEventScreen> {
   }
 
   @override
+  void didChangeDependencies() {
+    // TODO: implement didChangeDependencies
+    super.didChangeDependencies();
+    event = ModalRoute
+        .of(context)
+        ?.settings
+        .arguments as Event;
+    titleController.text = event.title ?? "";
+    descController.text = event.description ?? "";
+    selectedDate = event.eventDate!.toDate();
+    selectedTime = TimeOfDay.fromDateTime(event.eventDate!.toDate());
+  }
+
+  @override
   void dispose() {
     // TODO: implement dispose
     super.dispose();
@@ -54,14 +70,14 @@ class _AddEventScreenState extends State<AddEventScreen> {
 
   @override
   Widget build(BuildContext context) {
-    ThemePorvider porvider=Provider.of<ThemePorvider>(context);
+    ThemePorvider porvider = Provider.of<ThemePorvider>(context);
     double height = MediaQuery
         .of(context)
         .size
         .height;
     return Scaffold(
       appBar: AppBar(
-        title: Text(StringsManager.addEvent.tr()),
+        title: Text(StringsManager.Editevent.tr()),
         leading: MyBackButton.BackButtonnn(),
       ),
       body: SingleChildScrollView(
@@ -79,11 +95,22 @@ class _AddEventScreenState extends State<AddEventScreen> {
                     child: TabBarView(
                       physics: NeverScrollableScrollPhysics(),
                       children: [
-                        TabViewImage(porvider.mode==ThemeMode.light?AssetsManager.sport_light:AssetsManager.sport_dark),
-                        TabViewImage(porvider.mode==ThemeMode.light?AssetsManager.birthday_light:AssetsManager.birthday_dark),
-                        TabViewImage(porvider.mode==ThemeMode.light?AssetsManager.book_light:AssetsManager.book_dark),
-                        TabViewImage(porvider.mode==ThemeMode.light?AssetsManager.exhibition_light:AssetsManager.exhibition_dark),
-                        TabViewImage(porvider.mode==ThemeMode.light?AssetsManager.meeting_light:AssetsManager.meeting_dark),
+                        TabViewImage(
+                            porvider.mode == ThemeMode.light ? AssetsManager
+                                .sport_light : AssetsManager.sport_dark),
+                        TabViewImage(
+                            porvider.mode == ThemeMode.light ? AssetsManager
+                                .birthday_light : AssetsManager.birthday_dark),
+                        TabViewImage(
+                            porvider.mode == ThemeMode.light ? AssetsManager
+                                .book_light : AssetsManager.book_dark),
+                        TabViewImage(
+                            porvider.mode == ThemeMode.light ? AssetsManager
+                                .exhibition_light : AssetsManager
+                                .exhibition_dark),
+                        TabViewImage(
+                            porvider.mode == ThemeMode.light ? AssetsManager
+                                .meeting_light : AssetsManager.meeting_dark),
                       ],
                     ),
                   ),
@@ -319,9 +346,9 @@ class _AddEventScreenState extends State<AddEventScreen> {
                   SizedBox(
                     width: double.infinity,
                     child: CustomButton(
-                      title: StringsManager.addEvent.tr(),
+                      title: StringsManager.Updateevent.tr(),
                       onClick: () {
-                        addEvent();
+                        EditEventt();
                       },
                     ),
                   ),
@@ -334,30 +361,29 @@ class _AddEventScreenState extends State<AddEventScreen> {
     );
   }
 
-  addEvent() async {
+  EditEventt() async {
     if (formkey.currentState!.validate()) {
-      DateTime newdate =DateTime(selectedDate!.year, selectedDate!.month, selectedDate!.day,
+      DateTime newdate = DateTime(
+          selectedDate!.year, selectedDate!.month, selectedDate!.day,
           selectedTime!.hour, selectedTime!.minute);
       DialogueUtilles.showDialgueLoading(context: context);
-      await FirebaseManager.addEvent(
-        Event(
+      await FirebaseManager.updateEvent(Event(
+          id:event.id ,
+          userId: FirebaseAuth.instance.currentUser?.uid,
+          type: AppConstants.type[selectedindex],
           title: titleController.text,
           description: descController.text,
-          userId: FirebaseAuth.instance.currentUser!.uid,
-          type: AppConstants.type[selectedindex],
-          eventDate: Timestamp.fromDate(newdate),
-        ),
-      );
+          eventDate: Timestamp.fromDate(newdate)));
       Navigator.pop(context);
       DialogueUtilles.showDialogueMessage(
         context: context,
-        message: "Event add successfully",
+        message: "Event updated successfully",
       );
+      Navigator.of(context);
       Navigator.pushNamed(context, HomeScreen.routeName);
     }
   }
 
-  DateTime? selectedDate;
 
   chooseDate() async {
     DateTime? newDate = await showDatePicker(
@@ -373,7 +399,6 @@ class _AddEventScreenState extends State<AddEventScreen> {
     }
   }
 
-  TimeOfDay? selectedTime;
 
   chooseTime() async {
     TimeOfDay? newTime = await showTimePicker(

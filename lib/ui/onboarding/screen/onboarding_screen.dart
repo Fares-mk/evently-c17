@@ -1,7 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:evently_c17/core/resources/AssetsManager.dart';
 import 'package:evently_c17/core/resources/StringsManager.dart';
-import 'package:evently_c17/core/reusable/back_buttonnn.dart';
 import 'package:evently_c17/model/onboarding_list.dart';
 import 'package:evently_c17/ui/onboarding/widget/onboarding_item.dart';
 import 'package:evently_c17/ui/signin/screen/signin_screen.dart';
@@ -33,20 +32,20 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         leading: index == 0
             ? null
             : IconButton(
-                onPressed: () {
-                  controller.previousPage(
-                    duration: Duration(milliseconds: 300),
-                    curve: Curves.easeInOut,
-                  );
-                },
-                icon: SvgPicture.asset(
-                  AssetsManager.back,
-                  colorFilter: ColorFilter.mode(
-                    Theme.of(context).colorScheme.primary,
-                    BlendMode.dstIn,
-                  ),
-                ),
-              ),
+          onPressed: () {
+            controller.previousPage(
+              duration: Duration(milliseconds: 300),
+              curve: Curves.easeInOut,
+            );
+          },
+          icon: SvgPicture.asset(
+            AssetsManager.back,
+            colorFilter: ColorFilter.mode(
+              Theme.of(context).colorScheme.primary,
+              BlendMode.dstIn,
+            ),
+          ),
+        ),
         title: Image.asset(
           AssetsManager.logo,
           height: 24,
@@ -110,16 +109,16 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               onClick: () {
                 index == 2
                     ? Navigator.of(
-                        context,
-                      ).pushReplacementNamed(SigninScreen.routeName)
+                  context,
+                ).pushReplacementNamed(SigninScreen.routeName)
                     : controller.nextPage(
-                        duration: Duration(milliseconds: 300),
-                        curve: Curves.easeInOut,
-                      );
+                  duration: Duration(milliseconds: 300),
+                  curve: Curves.easeInOut,
+                );
               },
             ),
           ),
-          SizedBox(height: 16),
+          SizedBox(height: 16,),
         ],
       ),
     );

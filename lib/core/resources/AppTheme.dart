@@ -35,9 +35,14 @@ abstract class AppTheme {
       secondary: ColorsManager.secondaryColor,
       tertiary: ColorsManager.teritaryColor,
       onPrimary: ColorsManager.onPrimaryColor,
-      onPrimaryContainer: ColorsManager.primaryColor,
+        onSecondary: ColorsManager.backgroundColor,
+        onPrimaryContainer: ColorsManager.primaryColor,
       onSecondaryContainer: Colors.white,
-      onTertiaryContainer: ColorsManager.fieldBorder
+      onTertiaryContainer: ColorsManager.fieldBorder,
+      onTertiaryFixed: ColorsManager.primaryColor,
+      onPrimaryFixed:Colors.white,
+        onSecondaryFixed: Colors.white
+
     ),
     textTheme: TextTheme(
       titleMedium: TextStyle(
@@ -71,7 +76,17 @@ abstract class AppTheme {
         color: ColorsManager.hintTextColor,
         fontSize: 14,
         fontWeight: FontWeight.w400
-      )
+      ),
+        displaySmall: TextStyle(
+        fontSize: 16,
+        fontWeight: FontWeight.w500,
+        color: ColorsManager.unselectedTab
+    ),
+        displayMedium: TextStyle(
+            fontWeight: FontWeight.w500,
+            fontSize: 16,
+            color: ColorsManager.secondaryColor
+        )
     )
   );
   static ThemeData darkTheme = ThemeData(
@@ -108,10 +123,13 @@ abstract class AppTheme {
         secondary: ColorsManager.darkSecondaryColor,
         tertiary: ColorsManager.darkTeritaryColor,
         onPrimary: ColorsManager.darkOnPrimaryColor,
+        onSecondary: ColorsManager.darkBackgroundColor,
         onPrimaryContainer: Colors.white,
         onSecondaryContainer: ColorsManager.darkUnselected,
-        onTertiaryContainer: ColorsManager.fieldBorderDark
-
+        onTertiaryContainer: ColorsManager.fieldBorderDark,
+        onTertiaryFixed: ColorsManager.darkPrimaryColor,
+        onPrimaryFixed:ColorsManager.darkUnselected,
+        onSecondaryFixed: ColorsManager.darkUnselected
 
     ),
       textTheme: TextTheme(
@@ -154,6 +172,16 @@ abstract class AppTheme {
             decoration: TextDecoration.underline,
             decorationColor: ColorsManager.primaryColor
         ),
+        displaySmall: TextStyle(
+          fontSize: 16,
+          fontWeight: FontWeight.w500,
+          color: ColorsManager.darkTeritaryColor
+        ),
+        displayMedium: TextStyle(
+          fontWeight: FontWeight.w500,
+          fontSize: 16,
+          color: ColorsManager.darkPrimaryColor
+        )
       )
   );
 }

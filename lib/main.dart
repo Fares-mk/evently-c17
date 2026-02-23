@@ -4,8 +4,11 @@ import 'package:evently_c17/core/resources/AppTheme.dart';
 import 'package:evently_c17/providers/theme_porvider.dart';
 import 'package:evently_c17/providers/user_provider.dart';
 import 'package:evently_c17/ui/add_event/screen/add_event_screen.dart';
+import 'package:evently_c17/ui/details_event/screen/details_screen.dart';
+import 'package:evently_c17/ui/edit_event/screen/edit_event.dart';
 import 'package:evently_c17/ui/forget_pass/screen/forgetpas_screen.dart';
 import 'package:evently_c17/ui/home/screen/home_screen.dart';
+import 'package:evently_c17/ui/home/tabs/home_tab/home_tab.dart';
 import 'package:evently_c17/ui/onboarding/screen/onboarding_screen.dart';
 import 'package:evently_c17/ui/signin/screen/signin_screen.dart';
 import 'package:evently_c17/ui/signup/screen/signup_screen.dart';
@@ -51,6 +54,7 @@ class MyApp extends StatelessWidget {
       themeMode: provider.mode,
       debugShowCheckedModeBanner: false,
       routes: {
+        EditEvent.routeName:(_)=>EditEvent(),
         SplashScreen.routeName: (_) => SplashScreen(),
         StartScreen.routeName: (_) => StartScreen(),
         SigninScreen.routeName: (_) => SigninScreen(),
@@ -62,8 +66,9 @@ class MyApp extends StatelessWidget {
         ),
         AddEventScreen.routeName: (_) => AddEventScreen(),
         OnboardingScreen.routeName: (_) => OnboardingScreen(),
+        DetailsScreen.routeName:(_)=>DetailsScreen(),
       },
-      initialRoute: SplashScreen.routeName,
+      initialRoute: HomeScreen.routeName,
     );
   }
 }

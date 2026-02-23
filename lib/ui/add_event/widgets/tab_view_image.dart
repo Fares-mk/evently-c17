@@ -14,7 +14,7 @@ class TabViewImage extends StatelessWidget {
       clipBehavior: Clip.antiAlias,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16),
-          border: Border.all(color: ColorsManager.fieldBorder),
+          border: Border.all(color: Theme.of(context).colorScheme.primary),
           image: DecorationImage(
               image: AssetImage(image)
           )

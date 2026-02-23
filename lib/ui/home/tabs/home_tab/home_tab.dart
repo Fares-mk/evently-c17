@@ -15,6 +15,7 @@ import 'package:provider/provider.dart';
 import '../../../../core/resources/my_flutter_app_icons.dart';
 
 class HomeTab extends StatelessWidget {
+  static const String routeName="home";
   const HomeTab({super.key});
 
   @override
