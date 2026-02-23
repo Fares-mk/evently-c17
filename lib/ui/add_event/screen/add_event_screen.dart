@@ -9,10 +9,14 @@ import 'package:evently_c17/core/resources/dialogue_utilles.dart';
 import 'package:evently_c17/core/reusable/CustomButton.dart';
 import 'package:evently_c17/core/reusable/CustomField.dart';
 import 'package:evently_c17/model/event.dart';
+import 'package:evently_c17/providers/theme_porvider.dart';
+import 'package:evently_c17/ui/home/screen/home_screen.dart';
+import 'package:evently_c17/ui/home/tabs/home_tab/home_tab.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:evently_c17/core/reusable/back_buttonnn.dart' as MyBackButton;
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
 
 import '../../../core/resources/my_flutter_app_icons.dart';
 import '../widgets/tab_view_image.dart';
@@ -50,6 +54,7 @@ class _AddEventScreenState extends State<AddEventScreen> {
 
   @override
   Widget build(BuildContext context) {
+    ThemePorvider porvider=Provider.of<ThemePorvider>(context);
     double height = MediaQuery
         .of(context)
         .size
@@ -74,11 +79,11 @@ class _AddEventScreenState extends State<AddEventScreen> {
                     child: TabBarView(
                       physics: NeverScrollableScrollPhysics(),
                       children: [
-                        TabViewImage(AssetsManager.sport_light),
-                        TabViewImage(AssetsManager.birthday_light),
-                        TabViewImage(AssetsManager.book_light),
-                        TabViewImage(AssetsManager.exhibition_light),
-                        TabViewImage(AssetsManager.meeting_light),
+                        TabViewImage(porvider.mode==ThemeMode.light?AssetsManager.sport_light:AssetsManager.sport_dark),
+                        TabViewImage(porvider.mode==ThemeMode.light?AssetsManager.birthday_light:AssetsManager.birthday_dark),
+                        TabViewImage(porvider.mode==ThemeMode.light?AssetsManager.book_light:AssetsManager.book_dark),
+                        TabViewImage(porvider.mode==ThemeMode.light?AssetsManager.exhibition_light:AssetsManager.exhibition_dark),
+                        TabViewImage(porvider.mode==ThemeMode.light?AssetsManager.meeting_light:AssetsManager.meeting_dark),
                       ],
                     ),
                   ),
@@ -348,6 +353,7 @@ class _AddEventScreenState extends State<AddEventScreen> {
         context: context,
         message: "Event add successfully",
       );
+      Navigator.pushNamed(context, HomeScreen.routeName);
     }
   }
 

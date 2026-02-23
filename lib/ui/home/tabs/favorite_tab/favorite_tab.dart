@@ -4,7 +4,9 @@ import 'package:evently_c17/core/resources/StringsManager.dart';
 import 'package:evently_c17/core/reusable/CustomField.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../core/remote/firestore/firestore_manager.dart';
 import '../../../../core/reusable/event_item.dart';
+import '../../../../model/event.dart';
 
 class FavoriteTab extends StatefulWidget {
   const FavoriteTab({super.key});
@@ -42,15 +44,31 @@ class _FavoriteTabState extends State<FavoriteTab> {
             ),
             SizedBox(height: 16,),
             Expanded(
-              child: ListView.separated(
-                  itemBuilder: (context, index) => EventItem(),
-                  separatorBuilder: (context, index) => SizedBox(height: 16,),
-                  itemCount: 10
-              ),
+              child: StreamBuilder(stream: FirebaseManager.getUserFavourite(),
+                builder: (context, snapshot) {
+                  if(snapshot.connectionState==ConnectionState.waiting){
+                    return Center(child: CircularProgressIndicator(),);
+                  }
+                  else if(snapshot.hasError){
+                    return InkWell(
+                        onTap: () => FirebaseManager.getEvent(),
+                        child: Center(child: Text("Try again")));
+                  }
+                  List<Event> eventList=snapshot.data??[];
+                  return ListView.separated(
+                      itemBuilder: (context, index) => EventItem(event: eventList[index] ),
+                      separatorBuilder: (context, index) => SizedBox(height: 16,),
+                      itemCount: eventList.length
+                  );
+                },
+              )
             ),
           ],
         ),
       ),
     );
+  }
+  search(){
+
   }
 }

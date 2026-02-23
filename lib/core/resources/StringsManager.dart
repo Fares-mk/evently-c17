@@ -53,6 +53,9 @@ abstract final class StringsManager {
   static const String getStarted="getStarted";
   static const String LoginwithGoogle="Login with Google";
   static const String SignupwithGoogle="Sign up with Google";
+  static const String Eventdetails="Event details";
+  static const String Editevent="Edit event";
+  static const String Updateevent="Update event";
 
 
 }

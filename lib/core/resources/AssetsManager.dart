@@ -43,4 +43,6 @@ abstract final class AssetsManager {
   static const String social="assets/images/social_boarding.png";
   static const String teacher="assets/images/teacher_boarding.png";
   static const String google="assets/images/google.png";
+  static const String edit="assets/images/edit-2.svg";
+  static const String delete="assets/images/trash.svg";
 }
