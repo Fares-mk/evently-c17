@@ -60,7 +60,7 @@ class _EditEventState extends State<EditEvent> {
       selectedDate = event.eventDate!.toDate();
       selectedTime = TimeOfDay.fromDateTime(event.eventDate!.toDate());
     }
-  }
+
 
   @override
   void dispose() {
